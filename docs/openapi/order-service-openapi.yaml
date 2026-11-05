@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Order Service API
+  version: 1.0.0
+  description: OpenAPI 3.1 specification for Nexus Commerce Order Orchestration Service
+servers:
+  - url: http://localhost:8083
+    description: Direct local instance
+  - url: http://localhost:8080/api/v1/orders
+    description: Routed via Spring Cloud Gateway
+paths:
+  /api/v1/orders:
+    post:
+      summary: Create and orchestrate order checkout
+      operationId: createOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreateRequest'
+      responses:
+        '201':
+          description: Order created in PENDING status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '409':
+          description: Insufficient inventory stock
+        '503':
+          description: Downstream inventory service unavailable
+components:
+  schemas:
+    OrderCreateRequest:
+      type: object
+      required: [customerEmail, items]
+      properties:
+        customerEmail:
+          type: string
+          format: email
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemRequest'
+    OrderItemRequest:
+      type: object
+      required: [sku, quantity, unitPrice]
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: integer
+        unitPrice:
+          type: number
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        orderNumber:
+          type: string
+        customerEmail:
+          type: string
+        status:
+          type: string
+        totalAmount:
+          type: number

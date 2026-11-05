@@ -1,0 +1,41 @@
+openapi: 3.1.0
+info:
+  title: Payment Service API
+  version: 1.0.0
+  description: OpenAPI 3.1 specification for Nexus Commerce Payment Ledger Service
+servers:
+  - url: http://localhost:8084
+    description: Direct local instance
+paths:
+  /api/v1/payments/{reference}:
+    get:
+      summary: Retrieve payment by unique reference
+      operationId: getPaymentByReference
+      parameters:
+        - name: reference
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+components:
+  schemas:
+    PaymentResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        paymentReference:
+          type: string
+        orderNumber:
+          type: string
+        amount:
+          type: number
+        status:
+          type: string

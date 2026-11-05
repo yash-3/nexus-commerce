@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Project-local Maven settings for nexus-commerce (personal learning project).
+  Bypasses the corporate (Valtech) Nexus mirror configured in ~/.m2/settings.xml,
+  which was returning 403 Forbidden for Spring Boot 4 / Spring Cloud 2025.x / Spring AI
+  artifacts that aren't proxied/cached there.
+
+  To use in IntelliJ:
+    Settings -> Build, Execution, Deployment -> Build Tools -> Maven
+      -> User settings file: point to this file (nexus-commerce/.mvn/settings.xml)
+      -> check "Override"
+    Then re-sync the Maven project.
+
+  To use on the CLI:
+    mvn -s .mvn/settings.xml clean install
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <!-- No mirrors: resolve directly from Maven Central / default repositories -->
+</settings>
+
