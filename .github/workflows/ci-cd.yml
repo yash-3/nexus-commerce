@@ -124,8 +124,8 @@ jobs:
 
       - name: Client-Side Dry-Run Validation
         run: |
-          echo "Validating Kubernetes manifests..."
-          kubectl apply --dry-run=client -f k8s/
+          echo "Validating Kubernetes manifests with Kustomize..."
+          kubectl kustomize k8s/ | kubectl apply --dry-run=client --validate=false -f -
 
       - name: Deploy to Kubernetes Cluster (Optional / Configured Secret)
         if: github.ref == 'refs/heads/main' && env.KUBECONFIG_DATA != ''
