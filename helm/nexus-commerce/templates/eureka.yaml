@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server
+spec:
+  replicas: {{ .Values.eureka.replicaCount }}
+  selector:
+    matchLabels:
+      app: eureka-server
+  template:
+    metadata:
+      labels:
+        app: eureka-server
+    spec:
+      containers:
+        - name: eureka-server
+          image: "{{ .Values.global.imageRegistry }}/{{ .Values.global.imageRepositoryPrefix }}/eureka-server:{{ .Values.global.imageTag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.eureka.port }}
+          env:
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: "eureka-server"
+            - name: EUREKA_CLIENT_REGISTER_WITH_EUREKA
+              value: "false"
+            - name: EUREKA_CLIENT_FETCH_REGISTRY
+              value: "false"
+          resources:
+            {{- toYaml .Values.eureka.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-server
+spec:
+  ports:
+    - port: {{ .Values.eureka.port }}
+      targetPort: {{ .Values.eureka.port }}
+  selector:
+    app: eureka-server

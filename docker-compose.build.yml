@@ -1,0 +1,48 @@
+services:
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/eureka-server:latest
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/api-gateway:latest
+
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/product-service:latest
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/inventory-service:latest
+
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/order-service:latest
+
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/payment-service:latest
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/notification-service:latest
+
+  ai-compliance-service:
+    build:
+      context: ./ai-compliance-service
+      dockerfile: Dockerfile
+    image: ghcr.io/nexus-commerce/ai-compliance-service:latest

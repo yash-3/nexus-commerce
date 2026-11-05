@@ -1,0 +1,14 @@
+apiVersion: v2
+name: nexus-commerce
+description: Production Helm Chart for Nexus Commerce Cloud Native Microservices Platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - spring-boot
+  - microservices
+  - ecommerce
+  - kafka
+  - eureka
+maintainers:
+  - name: Nexus Commerce Architecture Team

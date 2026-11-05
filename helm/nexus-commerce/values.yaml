@@ -1,0 +1,64 @@
+global:
+  imageRegistry: ghcr.io
+  imageRepositoryPrefix: nexus-commerce
+  imageTag: latest
+  imagePullPolicy: IfNotPresent
+  namespace: nexus-commerce
+
+eureka:
+  replicaCount: 1
+  port: 8761
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+gateway:
+  replicaCount: 2
+  port: 8080
+  serviceType: LoadBalancer
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 150m
+      memory: 256Mi
+
+services:
+  product:
+    port: 8081
+    replicaCount: 2
+    dbName: product_db
+  inventory:
+    port: 8082
+    replicaCount: 2
+    dbName: inventory_db
+  order:
+    port: 8083
+    replicaCount: 2
+    dbName: order_db
+  payment:
+    port: 8084
+    replicaCount: 2
+    dbName: payment_db
+  notification:
+    port: 8085
+    replicaCount: 1
+  compliance:
+    port: 8086
+    replicaCount: 1
+
+postgres:
+  enabled: true
+  storage: 2Gi
+  user: postgres
+  password: "postgres_secure_password_2026"
+
+kafka:
+  enabled: true
+  replicaCount: 1
+  partitions: 3
