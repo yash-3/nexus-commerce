@@ -52,6 +52,7 @@ Start the microservices in the following recommended order:
 4. `payment-service`, `notification-service`
 5. `ai-compliance-service`
 
+
 ### 4. Execute End-to-End Verification Pipeline
 Once services are running:
 ```bash
